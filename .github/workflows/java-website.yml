@@ -29,7 +29,7 @@ jobs:
           sleep 5
           curl -I http://127.0.0.1:8080/  
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: java-website
           path: target/*.jar
