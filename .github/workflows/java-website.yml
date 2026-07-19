@@ -2,7 +2,7 @@ name: Java Website CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main,master ]
   pull_request:
     branches: [ main ]
 
@@ -27,4 +27,9 @@ jobs:
         run: |
           java WebsiteServer > /tmp/java-website.log 2>&1 &
           sleep 5
-          curl -I http://127.0.0.1:8080/
+          curl -I http://127.0.0.1:8080/  
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: java-website
+          path: target/*.jar
