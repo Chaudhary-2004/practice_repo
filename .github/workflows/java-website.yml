@@ -1,0 +1,30 @@
+name: Java Website CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Compile Java app
+        run: javac WebsiteServer.java
+
+      - name: Start server and smoke test
+        run: |
+          java WebsiteServer > /tmp/java-website.log 2>&1 &
+          sleep 5
+          curl -I http://127.0.0.1:8080/
